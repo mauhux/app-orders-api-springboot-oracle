@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: app-orders-api
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: ORDERS_APP-PRD
+    password: password123
+    url: jdbc:oracle:thin:@localhost:1521/xepdb1
