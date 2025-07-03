@@ -1,4 +1,4 @@
-package dev.mauhux.apps.orders.entity;
+package dev.mauhux.apps.orders.business.data.model.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Cliente {
+public class ClienteEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENTES_SEQ")
