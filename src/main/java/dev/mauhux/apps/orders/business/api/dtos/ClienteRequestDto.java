@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 
 @Builder
-public record ClienteCommandDto(
+public record ClienteRequestDto(
 
         @NotEmpty(message = "El campo nombres no puede estar vacío")
         String nombres,

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram version="1" name="pedidos_diagram.erd">
+	<entities>
+		<data-source id="oracle_thin-1969f42304e-104a54de0f8ba6e1">
+			<entity id="1" name="CLIENTES" fq-name="CURSO326.CLIENTES" order="0" font="Inter:13:0" x="500" y="40">
+				<path name="CURSO326"/>
+			</entity>
+			<entity id="2" name="PEDIDOS" fq-name="CURSO326.PEDIDOS" order="1" font="Inter:13:0" x="260" y="40">
+				<path name="CURSO326"/>
+			</entity>
+			<entity id="3" name="PEDIDO_DETALLES" fq-name="CURSO326.PEDIDO_DETALLES" order="2" font="Inter:13:0" x="40" y="140">
+				<path name="CURSO326"/>
+			</entity>
+			<entity id="4" name="PRODUCTOS" fq-name="CURSO326.PRODUCTOS" order="3" font="Inter:13:0" x="260" y="260">
+				<path name="CURSO326"/>
+			</entity>
+		</data-source>
+	</entities>
+	<relations>
+		<relation name="FK_PEDIDOS_CLIENTE" fq-name="CURSO326.PEDIDOS.FK_PEDIDOS_CLIENTE" type="fk" pk-ref="1" fk-ref="2"/>
+		<relation name="FK_DETALLES_PEDIDO" fq-name="CURSO326.PEDIDO_DETALLES.FK_DETALLES_PEDIDO" type="fk" pk-ref="2" fk-ref="3"/>
+		<relation name="FK_DETALLES_PRODUCTO" fq-name="CURSO326.PEDIDO_DETALLES.FK_DETALLES_PRODUCTO" type="fk" pk-ref="4" fk-ref="3"/>
+	</relations>
+</diagram>

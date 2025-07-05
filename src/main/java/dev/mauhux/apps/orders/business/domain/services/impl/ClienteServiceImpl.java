@@ -1,12 +1,16 @@
 package dev.mauhux.apps.orders.business.domain.services.impl;
 
-import dev.mauhux.apps.orders.business.api.dtos.ClienteCommandDto;
-import dev.mauhux.apps.orders.business.api.dtos.ClienteDto;
+import dev.mauhux.apps.orders.business.api.dtos.ClienteRequestDto;
+import dev.mauhux.apps.orders.business.api.dtos.ClienteResponseDto;
 import dev.mauhux.apps.orders.business.data.repositories.ClienteRepository;
 import dev.mauhux.apps.orders.business.domain.mappers.ClienteMapper;
 import dev.mauhux.apps.orders.business.domain.services.ClienteService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +25,7 @@ public class ClienteServiceImpl implements ClienteService {
     private final ClienteMapper clienteMapper;
 
     @Override
-    public List<ClienteDto> getClientes() {
+    public List<ClienteResponseDto> getClientes() {
         return clienteRepository
                 .findAll()
                 .stream()
@@ -30,28 +34,28 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Optional<ClienteDto> getClienteById(Integer id) {
+    public Optional<ClienteResponseDto> getClienteById(Integer id) {
         return clienteRepository
                 .findById(id)
                 .map(clienteMapper::toDto);
     }
 
     @Override
-    public ClienteDto createCliente(ClienteCommandDto clienteCommandDto) {
+    public ClienteResponseDto createCliente(ClienteRequestDto clienteRequestDto) {
         return clienteMapper
                 .toDto(
                         clienteRepository.save(
-                                clienteMapper.toEntity(clienteCommandDto)
+                                clienteMapper.toEntity(clienteRequestDto)
                         )
                 );
     }
 
     @Override
-    public ClienteDto updateCliente(ClienteCommandDto clienteCommandDto, Integer id) {
+    public ClienteResponseDto updateCliente(ClienteRequestDto clienteRequestDto, Integer id) {
         return clienteRepository
                 .findById(id)
                 .map(clienteEntity -> {
-                    clienteMapper.updateEntityFromDto(clienteCommandDto, clienteEntity);
+                    clienteMapper.updateEntityFromDto(clienteRequestDto, clienteEntity);
                     return clienteMapper.toDto(clienteRepository.save(clienteEntity));
                 })
                 .orElseThrow(() -> {
@@ -65,5 +69,14 @@ public class ClienteServiceImpl implements ClienteService {
         clienteRepository
                 .findById(id)
                 .ifPresent(clienteRepository::delete);
+    }
+
+    @Override
+    public Page<ClienteResponseDto> getClientesByPageAndNombres(String nombres, int page, int size, String sortBy, String sortDir) {
+        Sort.Direction direction = sortDir.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+        return clienteRepository
+                .findByNombresContainingIgnoreCase(nombres, pageable)
+                .map(clienteMapper::toDto);
     }
 }

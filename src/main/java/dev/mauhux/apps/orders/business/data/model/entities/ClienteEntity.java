@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "CLIENTES")
 @Data
@@ -20,9 +22,14 @@ public class ClienteEntity {
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "NOMBRES")
     private String nombres;
 
-    @Column(name = "APELLIDOS")
     private String apellidos;
+
+    private String email;
+
+    private String direccion;
+
+    @Column(name = "FECHA_CREACION")
+    private LocalDateTime fechaCreacion;
 }

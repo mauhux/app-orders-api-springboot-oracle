@@ -3,3 +3,17 @@ spring:
     name: app-orders-api
   profiles:
     active: dev
+
+springdoc:
+  api-docs:
+    enable: true
+    path: /api/docs
+  swagger-ui:
+    enable: true
+    path: /swagger-ui.html
+    tagsSorter: alpha
+    operationsSorter: alpha
+
+token:
+  signing:
+    key: R2FsYXh5VHJhaW5pbmdPbk1vZGVGdWxsU3RhY2syMDI1
